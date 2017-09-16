@@ -2,12 +2,14 @@ package com.example.justin.testingvisualizer;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             //image bitmap is the image
+            ImageView imageView = (ImageView) findViewById(R.id.result);
             Thread t = new Thread(new runnable());
             t.start();
         }
