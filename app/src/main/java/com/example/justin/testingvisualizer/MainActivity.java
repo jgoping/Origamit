@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Thread t = new Thread(new runnable(this));
+        Thread t = new Thread(new runnable());
         t.start();
 
     }
