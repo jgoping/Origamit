@@ -16,6 +16,8 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImages
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    int title = 1;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -49,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
             //image bitmap is the image
             ImageView imageView = (ImageView) findViewById(R.id.result);
             imageView.setImageBitmap(imageBitmap);
+
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String imageFileName = "JPEG_" + timeStamp + "_";
+            MediaStore.Images.Media.insertImage(getContentResolver(), imageBitmap, imageFileName, "Origamit");
             Thread t = new Thread(new runnable());
             t.start();
         }
