@@ -1,14 +1,11 @@
 package com.example.justin.testingvisualizer;
 
 import android.support.v7.app.AppCompatActivity;
-
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
-
 import java.io.File;
 import java.util.ArrayList;
-
 import org.json.*;
 
 /**
