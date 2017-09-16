@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             //image bitmap is the image
             ImageView imageView = (ImageView) findViewById(R.id.result);
+            imageView.setImageBitmap(imageBitmap);
             Thread t = new Thread(new runnable());
             t.start();
         }
