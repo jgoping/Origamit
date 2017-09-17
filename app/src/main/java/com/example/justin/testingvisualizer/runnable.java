@@ -1,5 +1,6 @@
 package com.example.justin.testingvisualizer;
 
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 
@@ -10,6 +11,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import org.json.*;
 
@@ -17,8 +19,8 @@ import org.json.*;
  * Created by Justin on 2017-09-16.
  */
 
-public class runnable extends AppCompatActivity implements Runnable {
-    private ArrayList<String> names;
+public class runnable extends AppCompatActivity implements Callable<ArrayList<String>> {
+    private ArrayList<String> names = new ArrayList<>();
     Thread runner;
     File chosenFileName;
     String fName;
@@ -33,7 +35,7 @@ public class runnable extends AppCompatActivity implements Runnable {
         names.clear();
     }
 
-    public void run() {
+    public ArrayList<String> call() {
         try  {
 
             VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
@@ -75,11 +77,12 @@ public class runnable extends AppCompatActivity implements Runnable {
             obj = new JSONObject(arr.getString(2));
             names.add(obj.getString("class"));
 
-            System.out.println(names);
+            return names;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
     public ArrayList<String> getNames() {
         return names;

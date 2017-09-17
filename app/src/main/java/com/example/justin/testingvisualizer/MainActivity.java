@@ -20,6 +20,8 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
 
@@ -125,8 +127,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
-
-    int title = 1;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -142,8 +142,22 @@ public class MainActivity extends AppCompatActivity {
 
             MediaStore.Images.Media.insertImage(getContentResolver(), imageBitmap, imageFileName, "Origamit");
 
-            Thread t = new Thread(new runnable(imageFileName));
+            FutureTask<ArrayList<String>> futureTask = new FutureTask<ArrayList<String>>(new runnable(imageFileName));
+            Thread t = new Thread(futureTask);
             t.start();
+            try {
+                ArrayList<String> names = futureTask.get();
+                Button b1 = (Button) findViewById(R.id.b1);
+                b1.setText(names.get(0));
+                Button b2 = (Button) findViewById(R.id.b2);
+                b2.setText(names.get(1));
+                Button b3 = (Button) findViewById(R.id.b3);
+                b3.setText(names.get(2));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
         }
         if(requestCode == IMAGE_GALLERY_REQUEST && resultCode == RESULT_OK) {
@@ -156,17 +170,22 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap image = BitmapFactory.decodeStream(inputStream);
                 imageView.setImageBitmap(image);
 
-                Thread t = new Thread(new runnable(imageFile));
+                FutureTask<ArrayList<String>> futureTask = new FutureTask<ArrayList<String>>(new runnable(imageFile));
+                Thread t = new Thread(futureTask);
                 t.start();
                 try {
-                    t.join();
-                }
-                catch (InterruptedException e){
+                    ArrayList<String> names = futureTask.get();
+                    Button b1 = (Button) findViewById(R.id.b1);
+                    b1.setText(names.get(0));
+                    Button b2 = (Button) findViewById(R.id.b2);
+                    b2.setText(names.get(1));
+                    Button b3 = (Button) findViewById(R.id.b3);
+                    b3.setText(names.get(2));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-
-                ArrayList<String> names = new ArrayList<String>();
-                //names = t.getNames();
 
             }catch (FileNotFoundException e){
                 e.printStackTrace();
