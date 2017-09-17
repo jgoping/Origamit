@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button button = (Button) findViewById(R.id.snap);
+        final FloatingActionButton button = (FloatingActionButton) findViewById(R.id.snap);
         Button b1 = (Button) findViewById(R.id.b1);
         Button b2 = (Button) findViewById(R.id.b2);
         Button b3 = (Button) findViewById(R.id.b3);
@@ -46,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         b1.setOnClickListener(new View.OnClickListener() {
-            String url = "https://origami.me/?s=";
             Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
+                String url = "https://origami.me/?s=";
                 Button b1 = (Button) findViewById(R.id.b1);
                 String s = b1.getText().toString();
                 String[] arr = s.split(" ");
@@ -68,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         b2.setOnClickListener(new View.OnClickListener() {
-            String url = "https://origami.me/?s=";
             Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
+                String url = "https://origami.me/?s=";
                 Button b2 = (Button) findViewById(R.id.b2);
                 String s = b2.getText().toString();
                 String[] arr = s.split(" ");
@@ -90,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         b3.setOnClickListener(new View.OnClickListener() {
-            String url = "https://origami.me/?s=";
             Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
+                String url = "https://origami.me/?s=";
                 Button b3 = (Button) findViewById(R.id.b3);
                 String s = b3.getText().toString();
                 String[] arr = s.split(" ");
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        final Button button2 = (Button) findViewById(R.id.gallery);
+        final FloatingActionButton button2 = (FloatingActionButton) findViewById(R.id.gallery);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onImageGalleryClicked(v);
