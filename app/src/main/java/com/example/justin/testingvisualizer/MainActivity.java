@@ -1,27 +1,28 @@
 package com.example.justin.testingvisualizer;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.Image;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
-import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
+import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final int IMAGE_GALLERY_REQUEST = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dispatchTakePictureIntent();
+            }
+        });
+        final Button button2 = (Button) findViewById(R.id.gallery);
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onImageGalleryClicked(v);
             }
         });
     }
@@ -57,31 +64,52 @@ public class MainActivity extends AppCompatActivity {
 
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "_";
+
+
             MediaStore.Images.Media.insertImage(getContentResolver(), imageBitmap, imageFileName, "Origamit");
 
-            /*
-            try {
-                FileOutputStream out = new FileOutputStream(imageFileName);
-                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                out.flush();
-                out.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            */
-
-            Thread t = new Thread(new runnable());
+            Thread t = new Thread(new runnable(imageFileName));
             t.start();
 
-
-
-
-            /*
-            String url = "http://www.google.com";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-            */
         }
+        if(requestCode == IMAGE_GALLERY_REQUEST && resultCode == RESULT_OK) {
+            Uri imageUri = data.getData();
+            File imageFile = new File(getRealPathFromURI(imageUri));
+            InputStream inputStream;
+            ImageView imageView = (ImageView) findViewById(R.id.result);
+            try {
+                inputStream = getContentResolver().openInputStream(imageUri);
+                Bitmap image = BitmapFactory.decodeStream(inputStream);
+                imageView.setImageBitmap(image);
+                Thread t = new Thread(new runnable(imageFile));
+                t.start();
+            }catch (FileNotFoundException e){
+                e.printStackTrace();
+                Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public void onImageGalleryClicked(View v) {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = pictureDirectory.getPath();
+        Uri data = Uri.parse(pictureDirectoryPath);
+        photoPickerIntent.setDataAndType(data, "image/*");
+        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
     }
 }

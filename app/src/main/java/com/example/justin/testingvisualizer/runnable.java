@@ -1,12 +1,6 @@
 package com.example.justin.testingvisualizer;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
@@ -14,10 +8,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImages
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.json.*;
 
@@ -28,6 +19,14 @@ import org.json.*;
 public class runnable extends AppCompatActivity implements Runnable {
 
     Thread runner;
+    File chosenFileName;
+    String fName;
+
+    public runnable (String imageFileName) {
+        fName = imageFileName;
+    }
+
+    public runnable (File file) { chosenFileName = file; }
 
     public void run() {
         try  {
@@ -37,9 +36,19 @@ public class runnable extends AppCompatActivity implements Runnable {
 
 
             System.out.println("Classify an image");
-            ClassifyImagesOptions options = new ClassifyImagesOptions.Builder()
-                    .images(new File("/storage/0123-4567/Frog.jpg"))
-                    .build();
+            ClassifyImagesOptions options;
+            if (fName != null) {
+                options = new ClassifyImagesOptions.Builder()
+                        .images(new File(Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_PICTURES) + "/" + fName + ".jpg")) // "/storage/0123-4567/Frog.jpg"
+                        .build(); //+ "/" + fName + ".jpg"
+            }else{
+                options = new ClassifyImagesOptions.Builder()
+                        .images(chosenFileName) // "/storage/0123-4567/Frog.jpg"
+                        .build(); //+ "/" + fName + ".jpg"
+            }
+
+
             VisualClassification result = service.classify(options).execute();
             //System.out.println(result);
 
