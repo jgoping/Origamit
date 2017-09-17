@@ -16,15 +16,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-
-import static android.os.Environment.DIRECTORY_PICTURES;
 
 
 public class MainActivity extends AppCompatActivity {
