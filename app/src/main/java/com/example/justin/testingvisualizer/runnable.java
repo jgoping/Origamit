@@ -1,8 +1,11 @@
 package com.example.justin.testingvisualizer;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 import org.json.*;
+
+import static android.os.Environment.getExternalStoragePublicDirectory;
 
 /**
  * Created by Justin on 2017-09-16.
@@ -43,7 +48,7 @@ public class runnable extends AppCompatActivity implements Callable<ArrayList<St
             VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
             service.setApiKey("99e49c0dc9f6aed1839753a66f3b9d7865537e4d");
 
-            File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            File folder = getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
             String[] listOfFiles = folder.list();
             String lastImagePath = "";
             for (String path : listOfFiles) {
@@ -53,13 +58,14 @@ public class runnable extends AppCompatActivity implements Callable<ArrayList<St
 
             System.out.println("Classify an image");
             ClassifyImagesOptions options;
+            //just took picture
             if (fName != null) {
                 options = new ClassifyImagesOptions.Builder()
-                        .images(new File(Environment.getExternalStoragePublicDirectory
+                        .images(new File(getExternalStoragePublicDirectory
                                 (Environment.DIRECTORY_PICTURES)
                                 + "/" + lastImagePath)) // "/storage/0123-4567/Frog.jpg"
                         .build(); //+ "/" + fName + ".jpg"
-            }else{
+            }else{ //from gallery
                 options = new ClassifyImagesOptions.Builder()
                         .images(chosenFileName) // "/storage/0123-4567/Frog.jpg"
                         .build(); //+ "/" + fName + ".jpg"
