@@ -17,7 +17,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
+import static android.os.Environment.DIRECTORY_PICTURES;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,9 +33,79 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Button button = (Button) findViewById(R.id.snap);
+        Button b1 = (Button) findViewById(R.id.b1);
+        Button b2 = (Button) findViewById(R.id.b2);
+        Button b3 = (Button) findViewById(R.id.b3);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dispatchTakePictureIntent();
+            }
+        });
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            String url = "https://origami.me/?s=";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+
+            public void onClick(View v) {
+                Button b1 = (Button) findViewById(R.id.b1);
+                String s = b1.getText().toString();
+                String[] arr = s.split(" ");
+                int j = 0;
+                for ( String ss : arr) {
+                    if (j > 0) {
+                        url += '+';
+                    }
+                    url += ss;
+                    System.out.println(ss);
+                    j++;
+                }
+
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            String url = "https://origami.me/?s=";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+
+            public void onClick(View v) {
+                Button b2 = (Button) findViewById(R.id.b2);
+                String s = b2.getText().toString();
+                String[] arr = s.split(" ");
+                int j = 0;
+                for ( String ss : arr) {
+                    if (j > 0) {
+                        url += '+';
+                    }
+                    url += ss;
+                    System.out.println(ss);
+                    j++;
+                }
+
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            String url = "https://origami.me/?s=";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+
+            public void onClick(View v) {
+                Button b3 = (Button) findViewById(R.id.b3);
+                String s = b3.getText().toString();
+                String[] arr = s.split(" ");
+                int j = 0;
+                for ( String ss : arr) {
+                    if (j > 0) {
+                        url += '+';
+                    }
+                    url += ss;
+                    System.out.println(ss);
+                    j++;
+                }
+
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
         final Button button2 = (Button) findViewById(R.id.gallery);
@@ -80,8 +154,10 @@ public class MainActivity extends AppCompatActivity {
                 inputStream = getContentResolver().openInputStream(imageUri);
                 Bitmap image = BitmapFactory.decodeStream(inputStream);
                 imageView.setImageBitmap(image);
+
                 Thread t = new Thread(new runnable(imageFile));
                 t.start();
+
             }catch (FileNotFoundException e){
                 e.printStackTrace();
                 Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
