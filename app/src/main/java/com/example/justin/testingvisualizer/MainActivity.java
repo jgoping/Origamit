@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         b1.setOnClickListener(new View.OnClickListener() {
-            String url = "https://origami.me/?s=";
             Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
+                String url = "https://origami.me/?s=";
                 Button b1 = (Button) findViewById(R.id.b1);
                 String s = b1.getText().toString();
                 String[] arr = s.split(" ");
@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         b2.setOnClickListener(new View.OnClickListener() {
-            String url = "https://origami.me/?s=";
             Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
+                String url = "https://origami.me/?s=";
                 Button b2 = (Button) findViewById(R.id.b2);
                 String s = b2.getText().toString();
                 String[] arr = s.split(" ");
@@ -91,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         b3.setOnClickListener(new View.OnClickListener() {
-            String url = "https://origami.me/?s=";
             Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
+                String url = "https://origami.me/?s=";
                 Button b3 = (Button) findViewById(R.id.b3);
                 String s = b3.getText().toString();
                 String[] arr = s.split(" ");
