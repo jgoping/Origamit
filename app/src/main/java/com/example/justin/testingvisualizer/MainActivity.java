@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 import static com.example.justin.testingvisualizer.R.id.webview;
+import static java.lang.Math.min;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -154,9 +154,9 @@ public class MainActivity extends AppCompatActivity {
             try {
                 ArrayList<String> names = futureTask.get();
                 Button b1 = (Button) findViewById(R.id.b1);
-                b1.setText(names.get(0));
+                b1.setText(names.get(min(0, names.size()-1)));
                 Button b2 = (Button) findViewById(R.id.b2);
-                b2.setText(names.get(1));
+                b2.setText(names.get(min(1, names.size()-1)));
                 Button b3 = (Button) findViewById(R.id.b3);
                 b3.setText(names.get(2));
                 TextView Title = (TextView) findViewById(R.id.Title);
@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 b3.setVisibility(View.VISIBLE);
                 Title.setVisibility(View.GONE);
 
+                b3.setText(names.get(min(2, names.size()-1)));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
