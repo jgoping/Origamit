@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         Button b1 = (Button) findViewById(R.id.b1);
         Button b2 = (Button) findViewById(R.id.b2);
         Button b3 = (Button) findViewById(R.id.b3);
+        b1.setVisibility(View.GONE);
+        b2.setVisibility(View.GONE);
+        b3.setVisibility(View.GONE);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dispatchTakePictureIntent();
@@ -151,6 +154,12 @@ public class MainActivity extends AppCompatActivity {
                 b2.setText(names.get(1));
                 Button b3 = (Button) findViewById(R.id.b3);
                 b3.setText(names.get(2));
+
+
+                b1.setVisibility(View.VISIBLE);
+                b2.setVisibility(View.VISIBLE);
+                b3.setVisibility(View.VISIBLE);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -179,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
                     b2.setText(names.get(1));
                     Button b3 = (Button) findViewById(R.id.b3);
                     b3.setText(names.get(2));
+
+                    b1.setVisibility(View.VISIBLE);
+                    b2.setVisibility(View.VISIBLE);
+                    b3.setVisibility(View.VISIBLE);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
