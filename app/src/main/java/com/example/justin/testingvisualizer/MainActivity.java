@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -157,11 +159,13 @@ public class MainActivity extends AppCompatActivity {
                 b2.setText(names.get(1));
                 Button b3 = (Button) findViewById(R.id.b3);
                 b3.setText(names.get(2));
+                TextView Title = (TextView) findViewById(R.id.Title);
 
 
                 b1.setVisibility(View.VISIBLE);
                 b2.setVisibility(View.VISIBLE);
                 b3.setVisibility(View.VISIBLE);
+                Title.setVisibility(View.GONE);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -191,10 +195,12 @@ public class MainActivity extends AppCompatActivity {
                     b2.setText(names.get(1));
                     Button b3 = (Button) findViewById(R.id.b3);
                     b3.setText(names.get(2));
+                    TextView Title = (TextView) findViewById(R.id.Title);
 
                     b1.setVisibility(View.VISIBLE);
                     b2.setVisibility(View.VISIBLE);
                     b3.setVisibility(View.VISIBLE);
+                    Title.setVisibility(View.GONE);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
