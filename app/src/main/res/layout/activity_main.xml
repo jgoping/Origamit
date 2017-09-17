@@ -6,28 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.justin.testingvisualizer.MainActivity">
 
-    <Button
-        android:id="@+id/snap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take Photo"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/result"
-        app:layout_constraintBottom_toTopOf="@+id/b2"
-        app:layout_constraintHorizontal_bias="0.24" />
-
-    <Button
-        android:id="@+id/gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose Photo"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/result"
-        app:layout_constraintBottom_toTopOf="@+id/b2"
-        app:layout_constraintHorizontal_bias="0.745" />
-
     <ImageView
         android:id="@+id/result"
         android:layout_width="191dp"
@@ -35,38 +13,66 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@mipmap/goose_launcher"
-        app:layout_constraintBottom_toTopOf="@+id/snap"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="86dp"
         app:layout_constraintHorizontal_bias="0.502" />
 
     <Button
         android:id="@+id/b1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="74dp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
         android:text="1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/b2"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/b2" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <Button
         android:id="@+id/b2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
         android:text="2"
-        app:layout_constraintRight_toLeftOf="@+id/b3"
-        app:layout_constraintTop_toBottomOf="@+id/snap"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/b1" />
+        app:layout_constraintBottom_toTopOf="@+id/b3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/b1"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <Button
         android:id="@+id/b3"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/b2"
+        app:layout_constraintBottom_toTopOf="@+id/snap"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/snap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="74dp"
-        android:text="3"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_camera_alt_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/b2"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/gallery"
+        android:layout_marginBottom="28dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_image_black_24dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/snap"
+        app:layout_constraintTop_toBottomOf="@+id/b3"
+        app:layout_constraintVertical_bias="0.605" />
+
 </android.support.constraint.ConstraintLayout>
