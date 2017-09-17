@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -157,6 +158,15 @@ public class MainActivity extends AppCompatActivity {
 
                 Thread t = new Thread(new runnable(imageFile));
                 t.start();
+                try {
+                    t.join();
+                }
+                catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+
+                ArrayList<String> names = new ArrayList<String>();
+                //names = t.getNames();
 
             }catch (FileNotFoundException e){
                 e.printStackTrace();

@@ -8,6 +8,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImages
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.json.*;
@@ -17,16 +18,20 @@ import org.json.*;
  */
 
 public class runnable extends AppCompatActivity implements Runnable {
-
+    private ArrayList<String> names;
     Thread runner;
     File chosenFileName;
     String fName;
 
     public runnable (String imageFileName) {
         fName = imageFileName;
+        names.clear();
     }
 
-    public runnable (File file) { chosenFileName = file; }
+    public runnable (File file) {
+        chosenFileName = file;
+        names.clear();
+    }
 
     public void run() {
         try  {
@@ -63,7 +68,7 @@ public class runnable extends AppCompatActivity implements Runnable {
             obj = new JSONObject(arr.getString(0));
             arr = obj.getJSONArray("classes");
             obj = new JSONObject(arr.getString(0));
-            ArrayList<String> names = new ArrayList<>();
+
             names.add(obj.getString("class"));
             obj = new JSONObject(arr.getString(1));
             names.add(obj.getString("class"));
@@ -72,10 +77,12 @@ public class runnable extends AppCompatActivity implements Runnable {
 
             System.out.println(names);
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public ArrayList<String> getNames() {
+        return names;
     }
 
 
