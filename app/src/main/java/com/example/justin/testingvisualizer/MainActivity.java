@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 import static com.example.justin.testingvisualizer.R.id.webview;
+import static java.lang.Math.min;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -149,11 +150,11 @@ public class MainActivity extends AppCompatActivity {
             try {
                 ArrayList<String> names = futureTask.get();
                 Button b1 = (Button) findViewById(R.id.b1);
-                b1.setText(names.get(0));
+                b1.setText(names.get(min(0, names.size()-1)));
                 Button b2 = (Button) findViewById(R.id.b2);
-                b2.setText(names.get(1));
+                b2.setText(names.get(min(1, names.size()-1)));
                 Button b3 = (Button) findViewById(R.id.b3);
-                b3.setText(names.get(2));
+                b3.setText(names.get(min(2, names.size()-1)));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
