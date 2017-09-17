@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+
+import static com.example.justin.testingvisualizer.R.id.webview;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         b1.setOnClickListener(new View.OnClickListener() {
-            Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
                 String url = "https://origami.me/?s=";
@@ -64,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
                     j++;
                 }
 
-                i.setData(Uri.parse(url));
-                startActivity(i);
+                Intent menuIntent = new Intent(MainActivity.this, WebActivity.class);
+                menuIntent.putExtra("url", url);
+                startActivity(menuIntent);
             }
         });
         b2.setOnClickListener(new View.OnClickListener() {
-            Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
                 String url = "https://origami.me/?s=";
@@ -86,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
                     j++;
                 }
 
-                i.setData(Uri.parse(url));
-                startActivity(i);
+                Intent menuIntent = new Intent(MainActivity.this, WebActivity.class);
+                menuIntent.putExtra("url", url);
+                startActivity(menuIntent);
             }
         });
         b3.setOnClickListener(new View.OnClickListener() {
-            Intent i = new Intent(Intent.ACTION_VIEW);
 
             public void onClick(View v) {
                 String url = "https://origami.me/?s=";
@@ -108,8 +110,9 @@ public class MainActivity extends AppCompatActivity {
                     j++;
                 }
 
-                i.setData(Uri.parse(url));
-                startActivity(i);
+                Intent menuIntent = new Intent(MainActivity.this, WebActivity.class);
+                menuIntent.putExtra("url", url);
+                startActivity(menuIntent);
             }
         });
         final FloatingActionButton button2 = (FloatingActionButton) findViewById(R.id.gallery);
